@@ -24,7 +24,7 @@
 <body>
  <div class="container">
   <h1>메시지 보내기</h1>
-  <form action="write.jsp" method="post">
+  <form action="write.do" method="post">
   
    <div class="form-group">
     <label for="accepter">받는사람의 아이디</label>

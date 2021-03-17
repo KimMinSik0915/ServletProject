@@ -6,51 +6,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-System.out.println("view.jsp 실행 -----------------------");
-
-// 넘어오는 데이터 받아오기 : ID
-// session의 login에 id가 들어있다.
-// session.getAttribute("login") = data type이 Object
-LoginVO loginVO = (LoginVO)session.getAttribute("login");	// session에 저장된 정보가 loginVO에 담겨 있으므로 LoginVO로 캐스팅하여 사용
-System.out.println("view.jsp loginVO : " + loginVO);	// server가 리스타트되면 자동 로그아웃 된다.
-
-// 로그인이 안되어 있으면(null) login.jsp로 가라
-
-if(loginVO == null) {
-	
-	response.sendRedirect("loginForm.jsp");
-	
-	return;
-	
-} 
-
-// 필요한 정보인 id는 loginVO에 담겨 있으므로 loginvo.getId를 이용해 ID를 가져온다.
-String id = loginVO.getId();
-System.out.println("view.jsp id : " + id);
-
-// 요청 URL 받아오기 
-String url = request.getServletPath();
-System.out.println("view.jsp url" + url);
-
-Service service = Beans.get(url);
-System.out.println("view.jsp [service] : " + service);
-
-// VO객체에서 데이터 가져오기 (실행결과를 VO객체에 저장해야 하므로 MemberVO를 초기화)
-MemberVO vo = (MemberVO)ExeService.execute(Beans.get(url), id);
-System.out.println("view.jsp vo : " + vo);
-
-request.setAttribute("vo", vo);		// 필요한 정보(id, name 등등)을 요청해야 html에서 사용할 수있다.
-
-// response는 요청에 대한 응답!
-// response.sendRedirect = 리스트로 돌아가자는 요청에 대한 응답으로 list로 돌아가게 된다.
-
-// html안에 쉰게 사용하는 EL을 쓰려면 서버 저장객체에 넣어야 한다. 주로 사용하는 것이 request.setAttribute("vo", vo);
-
-// class 여러개 적용하는 법 : class="conatainer div1 ..."
-
-
-%>
 <!DOCTYPE html>
 <html>
 <head>

@@ -36,9 +36,18 @@ public class DispatcherServlet extends HttpServlet {
 		
 		// /qna/list.do : /qna = subString(0, 4[indexOf("/", 1)])
 		// /board/list.do : /board = subString(0,6[indexOf("/",1)])
-		String module = AuthorityFilter.url.substring(0, AuthorityFilter.url.indexOf("/", 1));
 		
-		System.out.println("DispatcherServlet.service() [module] : " + module);
+		int endIndex = AuthorityFilter.url.indexOf("/", 1);
+						// /main/main.do
+		String module = "/main";
+		
+		if(endIndex >= 0) {		// MODULE이 존재하면 바꾼다. /maint.do : MODULE이 존재하지 않는다. MODULE 변수에 있는 값은 바뀌지 않는다.
+			
+			module = AuthorityFilter.url.substring(0, endIndex);
+			
+			System.out.println("DispatcherServlet.service() [module] : " + module);
+			
+		}
 		
 		
 		try {
@@ -59,6 +68,7 @@ public class DispatcherServlet extends HttpServlet {
 				// "redirect:list.dp -> jspInfo.subString("redirect.length()") = list.do
 				jspInfo = jspInfo.substring("redirect:".length());
 				
+				// /board/list.do
 				response.sendRedirect(jspInfo);
 				
 				return;

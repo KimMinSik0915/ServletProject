@@ -30,12 +30,12 @@ public class AuthorityFilter implements Filter {
 	{		// 데이터를 넣는방법 : AuthorityFilter.put(url, gradeNo)
 		
 		// 공지사항 - 등록, 수정, 삭제 = 관리자(9등급)
-//		authMap.put("/notice/writeForm.do", 9);
-//		authMap.put("/notice/write.do", 9);
-//		authMap.put("/notice/updateForm.do", 9);
-//		authMap.put("/notice/update.do", 9);
-//		authMap.put("/notice/delete.do", 9);
-		
+		authMap.put("/notice/writeForm.do", 9);
+		authMap.put("/notice/write.do", 9);
+		authMap.put("/notice/updateForm.do", 9);
+		authMap.put("/notice/update.do", 9);
+		authMap.put("/notice/delete.do", 9);
+		 
 		// message : list, view, write, delete = 1
 		authMap.put("/message/list.do", 1);
 		authMap.put("/message/view.do", 1);

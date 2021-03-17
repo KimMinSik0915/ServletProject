@@ -78,17 +78,24 @@ public class NoticeController implements Controller {
 			// 공지사항 수정
 			case "/" + MODULE + "/update.do" :
 				
-				write(request);
+				long no = update(request);
+			
+				jspInfo = "redirect:list.do?no=" + no + "page=1&perPageNum=" + pageObject.getPerPageNum();
+			
+				break;
+				
+			case "/" + MODULE + "/delete.do" :
+				
+				delete(request);
 			
 				jspInfo = "redirect:list.do?page=1&perPageNum=" + pageObject.getPerPageNum();
-			
-				break;
-				
-				default:
-				
-				
 				
 				break;
+				
+			default:
+					
+				throw new Exception("페이지 오류 404 : 존재하지 않는 페이지 입니다.");
+				
 		}
 		
 		return jspInfo;
@@ -155,8 +162,49 @@ public class NoticeController implements Controller {
 		
 		NoticeVO vo = (NoticeVO)ExeService.execute(Beans.get("/notice/view.do"), Long.parseLong(request.getParameter("no")));
 		
+		vo.setStartDate(vo.getStartDate().replace(".", "-"));
+		vo.setEndDate(vo.getEndDate().replace(".", "-"));
+		
 		request.setAttribute("vo", vo);
 		
 	}
+
+	private long update(HttpServletRequest request) throws Exception {
+		
+		long no = Long.parseLong(request.getParameter("no"));
+		
+		NoticeVO vo = new NoticeVO();
+		
+		vo.setNo(no);
+		vo.setTitle(request.getParameter("title"));
+		vo.setContent(request.getParameter("content"));
+		vo.setStartDate(request.getParameter("startDate"));
+		vo.setEndDate(request.getParameter("endDate"));
+		
+		int result = (int) ExeService.execute(Beans.get(AuthorityFilter.url), vo);
+		
+		if(result < 1) {
+			
+			throw new Exception("공지 수정 오류 : 존재하지 않는 글은 수정할 수 없습니다.");
+			
+		}
+		
+		return Long.parseLong(request.getParameter("no"));
+		
+	}
+	
+	private void delete(HttpServletRequest request) throws Exception {
+		
+		int result = (int) ExeService.execute(Beans.get(AuthorityFilter.url), Long.parseLong(request.getParameter("no")));
+		
+		if(result < 1) {
+			
+			throw new Exception("공지 삭제 오류  : 존재하지 않는 글은 삭제 할 수 없습니다.");
+			
+		}
+		
+		
+	}
+	
 	
 }

@@ -9,49 +9,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="pageObject" tagdir="/WEB-INF/tags" %>
-<% 
-
-
-long curPage = 1; 
-
-String strCurPage = request.getParameter("page");
-
-if(strCurPage != null) {
-	
-	curPage = Long.parseLong(strCurPage);
-	
-}
-
-long perPageNum = 10;	// 한 페이지에 보여줄 데이터의 개수
-
-String strPerPageNum = request.getParameter("perPageNum");
-
-if(strPerPageNum != null) {
-	
-	perPageNum = Long.parseLong(strPerPageNum);
-	
-}
-
-PageObject pageObject = new PageObject();
-
-pageObject.setPage(curPage);
-pageObject.setPerPageNum(perPageNum);
-
-System.out.println(AuthorityFilter.url);
-
-
-// 내 아이디를 가져와서 pageObject에 저장을 해준다.
-pageObject.setAccepter(((LoginVO)session.getAttribute("login")).getId());
-
-
-@SuppressWarnings("unchecked")
-List<MessageVO> list = (List<MessageVO>) ExeService.execute(Beans.get(AuthorityFilter.url), pageObject);
-
-request.setAttribute("list", list);
-request.setAttribute("pageObject", pageObject);
-
-%> 
- 
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,7 +48,7 @@ request.setAttribute("pageObject", pageObject);
 	 
 		var no = $(this).find(".no").text();	// 번호 받기
 		 
-		location = "view.jsp?no=" + no;	// 메시지 보기로 이동
+		location = "view.do?no=" + no;	// 메시지 보기로 이동
 		 
 	})
 	 
@@ -123,13 +80,13 @@ request.setAttribute("pageObject", pageObject);
    
    <tr>
     <td colspan="5">
-     <a href="writeForm.jsp" class="btn btn-default">메시지 전송</a>
+     <a href="writeForm.do" class="btn btn-default">메시지 전송</a>
     </td>
    </tr>
    
    <tr>
     <td colspan="5">
-     <pageObject:pageNav listURI="list.jsp" pageObject="${pageObjcet }"/>
+     <pageObject:pageNav listURI="list.do" pageObject="${pageObjcet }"/>
     </td>
    </tr>
    

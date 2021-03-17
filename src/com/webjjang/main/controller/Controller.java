@@ -1,7 +1,6 @@
 package com.webjjang.main.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 public interface Controller {
 

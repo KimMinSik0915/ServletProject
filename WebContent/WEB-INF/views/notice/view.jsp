@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판 글 보기</title>
+<title>공지 글 보기</title>
   <script type="text/javascript">
    // 객체 선택에 문제가 있다. 아래 document가 로딩이 되면 실행되는 스크립트 작성
    // jQuery에서 사용하는 $(function(){처리문;}) = jquery(function(){처리문;})
@@ -26,7 +26,7 @@
 <body>
 
 <div class="container">
- <h1>게시판 글 보기</h1>
+ <h1>공지 글 보기</h1>
  <table class="table">
   
  <tbody> 

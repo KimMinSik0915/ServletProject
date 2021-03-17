@@ -60,6 +60,12 @@ footer {
 	.carousel-caption {
 		display: none;
 	}
+	
+	#log_image {
+		
+		display: none;
+	
+	}
 }
 
 article {
@@ -81,7 +87,7 @@ article {
 </head>
 <body>
 	<header>
-<!-- 		<div><img href="#"/></div> -->
+<!-- 		<div id="log_image"><img src="/upload/image/cat01.jpg"/></div> -->
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -90,7 +96,7 @@ article {
 						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="${path }/main/main.do">Logo</a>
+					<a class="navbar-brand" href="/">Logo</a>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
@@ -106,7 +112,7 @@ article {
 					<ul class="nav navbar-nav navbar-right" id="myNavbar">
 						<!-- 로그인이 되어 있지 않은 경우의 메뉴 -->
 						<c:if test="${empty login }">
-						 <li><a href="#"><span class="glyphicon glyphicon-user"></span>회원가입</a></li>
+						 <li><a href="${path }/member/registerForm.do"><span class="glyphicon glyphicon-user"></span>회원가입</a></li>
 						 <li><a href="${path }/member/loginForm.do"><span class="glyphicon glyphicon-log-in"></span> 로그인</a></li>
 						</c:if>
 						<!-- 로그인이 되어 있는 경우의 메뉴 -->

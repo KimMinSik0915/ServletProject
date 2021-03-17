@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지 글 수정</title>
+<title>게시판 글 쓰기</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -28,18 +28,18 @@
 			
 			// 필수 입력
 			//alert((!require($("#title"), "제목"))); 
-			if(!require($("#title"), "제목")) return false;
+			if(!require($("#id"), "아이디")) return false;
 			
-			if(!require($("#content"), "내용")) return false;
+			if(!require($("#pw"), "비밀번호")) return false;
 			
 			// 길이
 			// 제목 : 4자 이상
-			if(!checkLength($("#title"), "제목", 4)) return false;
+			if(!checkLength($("#id"), "아이디", 4)) return false;
 			
 			// 내용 : 4자 이상
-			if(!checkLength($("#content"), "내용", 4)) return false;
+			if(!checkLength($("#pw"), "비밀번호", 4)) return false;
 			
-			
+			// 작성자 : 2자 이상
 	   });
 	   
    });
@@ -49,37 +49,42 @@
 <body>
 
  <div class="container">
-  <h1>공지 수정</h1>
-  <form action="update.do" method="post" id="writeForm">
-   <input name="page" type="hidden" value="${pageObject.page }">
-   <input name="perPageNum" type="hidden" value="${pageObject.perPageNum }">
+  <h1>글 쓰기</h1>
+  <form action="register.do" method="post" id="register">
+   <!-- 페이지에 대한 정보 넘기기 -->
+  
   
    <div class="form-group">
-    <label for="no">번호</label>
-    <input class="form-control" id="no" name="no" readonly="readonly" value="${vo.no }">
+    <label for="id">아이디</label>
+    <input class="form-control" id="id" name="id" required="required" placeholder="아이디는 4자 이상 입력하셔야 합니다." autofocus="autofocus">
    </div>
    
    <div class="form-group">
-    <label for="title">제목</label>
-    <input class="form-control" id="title" name="title" required="required" value="${vo.title }">
+    <label for="pw">비밀번호</label>
+    <input class="form-control" id="pw" name="pw" required="required" placeholder="비밀번호는 4자 이상 입력하셔야 합니다.">
    </div>
    
    <div class="form-group">
-    <label for="content">내용</label>
-    <textarea rows="5" class="form-control" id="content" name="content" required="required">${vo.content }</textarea>
+    <label for="name">작성자</label>
+    <input class="form-control" id="name" name="name" required="required" placeholder="이름은 2자 이상 입력하셔야 합니다.">
    </div>
    
    <div class="form-group">
-    <label for="startDate">공지 시작일</label>
-    <input class="form-control" id="startDate" name="startDate" required="required" value="${vo.startDate }">
+    <label class="radio-inline" for="gender"><input type="radio" name="gender" id="gender" checked="checked" value="남자">남자</label>
+    <label class="radio-inline" for="gender"><input type="radio" name="gender" id="gender" value="여자">여자</label>
    </div>
-   
+     
    <div class="form-group">
-    <label for="endDate">공지 종료일</label>
-    <input class="form-control" id="endDate" name="endDate" required="required" value="${vo.endDate }">
+    <label for="birth">생년월일</label>
+     <input class="form-control" id="birth" name="birth" required="required" type="date">
+   </div>
+    
+   <div class="form-group">
+    <label for="email">E-Mail</label>
+     <input class="form-control" id="email" name="email" required="required" type="email">
    </div>
    
-   <button class="btn btn-default">수정</button>
+   <button class="btn btn-default">등록</button>
    <button type="reset" class="btn btn-default">새로 입력</button>
    <button type="button" id="cancelBtn" class="btn btn-default">취소</button>
    

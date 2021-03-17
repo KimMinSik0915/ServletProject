@@ -49,7 +49,7 @@ public class DBSQL {
 	+ " TO_CHAR(updateDate, 'yyyy.mm.dd') updateDate FROM( "
 		+ " SELECT rownum rnum, no, title, startDate, writeDate, endDate, updateDate FROM ("
 			+ " SELECT no, title, startDate, writeDate, endDate, updateDate FROM notice"
-			+ " order by no desc "
+			+ " order by startDate desc "
 		+ " ) "
 	+ ") where rnum between ? and ?  ";
 	
@@ -89,6 +89,12 @@ public class DBSQL {
 	+ " FROM member m, grade g "
 	+ " WHERE m.gradeNo = g.gradeNo" 
 	+ " ORDER BY id ASC ";
+	
+	// register
+	public static final String MEMBER_REGISTER 
+	= " INSERT INTO member (id, pw, name, gender, birth, email)"
+	+ " VALUES(?, ?, ?, ?, ?, ?) ";
+			
 	
 	// 회원관리 리스트 ===============================================================================================
 	public static final String MEMBER1_LIST 	// 회원관리 리스트 : id, name, gender, birth, tel, status, gradeNo, gradeName
