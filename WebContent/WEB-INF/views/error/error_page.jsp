@@ -15,7 +15,7 @@ request.setAttribute("exception", exception);
   <h1>Error Page....</h1>
   <div class="panel panel-default">
   <div class="panel-heading">에러 메시지</div>
-  <div class="panel-body"><%= exception.getMessage() %> ${exception.message }</div>
+  <div class="panel-body">${exception.message }</div> 
 </div>
  </div>
 </body>

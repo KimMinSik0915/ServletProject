@@ -5,12 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>공지 등록</title>
-<!-- 부트 스트랩 라이브러리는 siteMash - default_decorator.jsp에서 통합적으로 등록해서 사용하도록 한다. -->
+<!-- 부트 스트랩 라이브러리는 siteMash - default_decorator.do에서 통합적으로 등록해서 사용하도록 한다. -->
 </head>
 <body>
  <div class="container">
   <h1>공지등록</h1>
-  <form action="write.jsp" method="post">
+  <form action="write.do" method="post">
+   <input name="perPageNum" type="hidden" value="${pageObject.perPageNum }">
   
    <div class="form-group">
     <label for="title">제목</label>

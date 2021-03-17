@@ -62,6 +62,19 @@ public class DBSQL {
 	= " INSERT INTO notice(no, title, content, startDate, endDate) "
 	+ " VALUES(notice_seq.NEXTVAL, ?, ?, ?, ?) ";
 	
+	// 공지사항 보기
+	public static final String NOTICE_VIEW
+	= " SELECT no, title, content, "
+	+ " TO_CHAR(startDate, 'yyyy.mm.dd') startDate, "
+	+ " TO_CHAR(endDate, 'yyyy.mm.dd') endDate, "
+	+ " TO_CHAR(updateDate, 'yyyy.mm.dd') updateDate "
+	+ " FROM notice "
+	+ " WHERE no = ? ";
+	
+	// 공지사항 수정
+	public static final String NOTICE_UPDATE
+	= " UPDATE notice SET title = ?, content = ?, startDate = ?, updateDate = ? "
+	+ " WHERE no = ? ";
 	
 	// 회원관리 쿼리 ===============================================================================================
 	public static final String MEMBER_LOGIN =	// 로그인 처리

@@ -20,6 +20,8 @@ public class BoardViewService implements Service {
 	@Override
 	public Object service(Object obj) throws Exception {
 		
+		System.out.println("BoardViewService.service [dao] : " + dao);
+		
 		// 글 보기와 글 수정 모두 사용
 		// 글 보기 일때는 조회수 1 증가(List -> View)
 		// 글 수정일 때는 증가하지 않는다.(Update -> View)

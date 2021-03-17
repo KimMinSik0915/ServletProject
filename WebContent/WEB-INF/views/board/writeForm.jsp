@@ -55,6 +55,9 @@
  <div class="container">
   <h1>글 쓰기</h1>
   <form action="write.do" method="post" id="writeForm">
+   <!-- 페이지에 대한 정보 넘기기 -->
+  <input name="perPageNum" type="hidden" value="${pageObject.perPageNum }">
+  
   
    <div class="form-group">
     <label for="title">제목</label>

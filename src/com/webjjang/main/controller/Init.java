@@ -18,6 +18,7 @@ import com.webjjang.image.service.ImageListService;
 import com.webjjang.image.service.ImageUpdateFileService;
 import com.webjjang.image.service.ImageViewService;
 import com.webjjang.image.service.ImageWriteService;
+import com.webjjang.member.controller.MemberController;
 import com.webjjang.member.dao.MemberDAO;
 import com.webjjang.member.service.MemberGradeModifyService;
 import com.webjjang.member.service.MemberListService;
@@ -28,8 +29,11 @@ import com.webjjang.message.serviec.MessageDeleteService;
 import com.webjjang.message.serviec.MessageListService;
 import com.webjjang.message.serviec.MessageViewService;
 import com.webjjang.message.serviec.MessageWriteService;
+import com.webjjang.notice.controller.NoticeController;
 import com.webjjang.notice.dao.NoticeDAO;
 import com.webjjang.notice.service.NoticeListService;
+import com.webjjang.notice.service.NoticeUpdateService;
+import com.webjjang.notice.service.NoticeViewService;
 import com.webjjang.notice.service.NoticeWriteService;
 import com.webjjang.qna.dao.QnaDAO;
 import com.webjjang.qna.service.QnaAnswerService;
@@ -93,17 +97,25 @@ public class Init extends HttpServlet {
 		// DAO 생성 및 저장
 		Beans.putDAO("noticeDAO", new NoticeDAO());
 		
+		Beans.putController("/notice", new NoticeController());
+		
 		// service 생성 후 저장
 		Beans.put("/notice/list.do", new NoticeListService());
+		Beans.put("/notice/view.do", new NoticeViewService());
 		Beans.put("/notice/write.do", new NoticeWriteService());
+		Beans.put("/notice/update.do", new NoticeUpdateService());
 		
 		// service에 DAO넣기
 		Beans.get("/notice/list.do").setDAO(Beans.getDAO("noticeDAO"));
+		Beans.get("/notice/view.do").setDAO(Beans.getDAO("noticeDAO")); 
 		Beans.get("/notice/write.do").setDAO(Beans.getDAO("noticeDAO"));
+		Beans.get("/notice/update.do").setDAO(Beans.getDAO("noticeDAO"));
 		
 		// 회원관리 ========================================================================================================
 		// dao 생성 저장
 		Beans.putDAO("memberDAO", new MemberDAO());
+		
+		Beans.putController("/member", new MemberController());
 		
 		// service 생성 후 저장
 		Beans.put("/member/login.do", new MemberLoginService());
@@ -170,8 +182,8 @@ public class Init extends HttpServlet {
 		Beans.get("/image/updateFile.do").setDAO(Beans.getDAO("imageDAO"));
 		Beans.get("/image/delete.do").setDAO(Beans.getDAO("imageDAO"));
 
-		System.out.println("Init.init().Beans.get(\"/image/delete.do\" : " + Beans.get("/image/delete.do"));
-		System.out.println("Init.init().Beans.getDAO(\"/imageDAO\" : " + Beans.getDAO("imageDAO"));
+		System.out.println("Init.init().Beans.get(\"/notice/update.do\" : " + Beans.get("/notice/update.do"));
+		System.out.println("Init.init().Beans.getDAO(\"/noticeDAO\" : " + Beans.getDAO("noticeDAO")); 
 		
 		// Oracle Driver와 필요한 method 로딩 
 		try {

@@ -7,7 +7,7 @@
 	uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-System.out.println("default_decorator.jsp [path] : " + request.getContextPath());
+System.out.println("default_decorator.do [path] : " + request.getContextPath());
 
 
 request.setAttribute("path", request.getContextPath());

@@ -74,11 +74,14 @@ public class DispatcherServlet extends HttpServlet {
 			
 			e.printStackTrace();
 			
+			request.setAttribute("exception", e);
+			
+			request.getRequestDispatcher("/WEB-INF/views/error/error_page.jsp").forward(request, response);	// forward시킨 내용의 url은 변경이 되지 않는다.
 			
 		}
 
 		// 요청한 URLd을 처리해서 출력
-		/*
+		/* 
 		 * String url = request.getServletPath();
 		 * System.out.println("DispatcherServlet.service() [url] : " + url);
 		 * 

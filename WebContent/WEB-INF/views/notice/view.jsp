@@ -47,18 +47,18 @@
    </tr>
    
    <tr>
-    <th>작성자</th>
-    <td>${vo.writer }</td>
+    <th>공지 시작일</th>
+    <td>${vo.startDate }</td>
    </tr>
    
    <tr>
-    <th>작성일</th>
-    <td>${vo.writeDate }</td>
+    <th>공지 종료일</th>
+    <td>${vo.endDate }</td>
    </tr>
    
    <tr>
-    <th>조회수</th>
-    <td>${vo.hit }</td>
+    <th>공지 수정일</th>
+    <td>${vo.updateDate }</td>
    </tr>
   <!-- 데이터가 있는 만큼 반복이 되어지는 부분(끝) -->
  </tbody>

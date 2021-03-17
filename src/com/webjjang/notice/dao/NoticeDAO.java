@@ -115,6 +115,57 @@ public class NoticeDAO {
 		
 	}
 	
+	// 공지 보기
+	public NoticeVO view(long no) throws Exception {
+		
+		NoticeVO vo = null;
+		
+		System.out.println("NoticeDAO.noticeView() : 실행 ==============");
+		
+		try {
+			
+			con = DBInfo.getConnection();
+			
+			System.out.println(DBSQL.NOTICE_VIEW);
+			
+			pstmt = con.prepareStatement(DBSQL.NOTICE_VIEW);
+			
+			pstmt.setLong(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs != null && rs.next()) {
+				
+				vo = new NoticeVO();
+				
+				vo.setNo(rs.getLong("no"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setStartDate(rs.getString("startDate"));
+				vo.setEndDate(rs.getString("endDate"));
+				vo.setUpdateDate(rs.getString("updateDate"));
+				
+				System.out.println(vo);
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			
+			e.printStackTrace();
+			
+			throw new Exception("선택한 글을 불러오는 중 DB에 오류가 발생하였습니다.");
+			
+		} finally {
+			
+			DBInfo.close(con, pstmt, rs);
+			
+		}
+		
+		return vo;
+		
+	}
+	
 	// 공지 등록
 	public int write(NoticeVO vo) throws Exception {
 		
@@ -152,4 +203,44 @@ public class NoticeDAO {
 		return result;
 		
 	}
+
+	// 공지 수정
+	public int update(NoticeVO vo) throws Exception {
+		
+		int result = 0;
+		
+		try {
+			
+			con = DBInfo.getConnection();
+			
+			pstmt = con.prepareStatement(DBSQL.NOTICE_UPDATE);
+	
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setString(3, vo.getStartDate());
+			pstmt.setString(4, vo.getEndDate());
+			pstmt.setLong(5, vo.getNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			
+			e.printStackTrace();
+			
+			throw new Exception("공지사항을 수정하는 중 DB에 오류가 발생하였습니다.");
+			
+		} finally {
+			
+			DBInfo.close(con, pstmt);
+			
+		}
+		
+		return result;
+		
+		
+		
+	}
+	
 }

@@ -30,7 +30,7 @@
 			var no = $(this).find(".no").text();
 			
 			// 조회수 1 증가를 위해 inc=1을 넘겨준다.
-			location = "view.do?no=" + no + "&inc=1";
+			location = "view.do?no=" + no + "&inc=1&page=${pageObject.page}&perPageNum=${pageObject.perPageNum}";
 	   });
    });
   </script>
@@ -70,7 +70,7 @@
   <tfoot>
    <tr>
     <td colspan="5">
-     <a href="writeForm.do" class="btn btn-default">글 쓰기</a>
+     <a href="writeForm.do?perPageNum=${pageObject.perPageNum }" class="btn btn-default">글 쓰기</a> 
     </td>
    </tr>
    <tr>

@@ -5,9 +5,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
-// 0. 한글 처리 : 글 번호만 받기 때문에 삭제해도 상관 없음.
-request.setCharacterEncoding("UTF-8");
-
 // 1. 넘어오는 데이터 수집
 String strNo = request.getParameter("no");
 

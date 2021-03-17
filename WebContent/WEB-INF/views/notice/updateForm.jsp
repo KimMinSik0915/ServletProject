@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판 글 수정</title>
+<title>공지 글 수정</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -53,7 +53,7 @@
 <body>
 
  <div class="container">
-  <h1>글 수정</h1>
+  <h1>공지 수정</h1>
   <form action="update.do" method="post" id="writeForm">
    <input name="page" type="hidden" value="${pageObject.page }">
    <input name="perPageNum" type="hidden" value="${pageObject.perPageNum }">
@@ -74,8 +74,13 @@
    </div>
    
    <div class="form-group">
-    <label for="writer">작성자</label>
-    <input class="form-control" id="writer" name="writer" required="required" value="${vo.writer }">
+    <label for="startDate">공지 시작일</label>
+    <input class="form-control" id="startDate" name="startDate" required="required" value="${vo.startDate }">
+   </div>
+   
+   <div class="form-group">
+    <label for="endDate">공지 종료일</label>
+    <input class="form-control" id="endDate" name="endDate" required="required" value="${vo.endDate }">
    </div>
    
    <button class="btn btn-default">수정</button>
