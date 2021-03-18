@@ -2,6 +2,7 @@ package com.webjjang.message.controller;
 
 import java.util.List;
 
+import javax.el.ELException;
 import javax.servlet.http.HttpServletRequest;
 
 import com.webjjang.main.controller.Beans;
@@ -62,6 +63,17 @@ public class MessageController implements Controller {
 		
 			break;
 			
+		// 새로운 메시지 개수 가져오기
+		case "/ajax/getMessageCnt.do" :
+
+			jspInfo = "" + getMessageCnt(request);
+			
+			//jspInfo = "123"; Test용
+		
+			System.out.println(jspInfo);
+		
+			break;
+		
 		default:
 			
 			throw new Exception("404 페이지 오류 : 존재하지 않는 페이지 입니다.");
@@ -107,6 +119,25 @@ public class MessageController implements Controller {
 		vo.setAccepter(request.getParameter("accepter"));
 		
 		ExeService.execute(Beans.get(AuthorityFilter.url), vo);
+		
+	}
+	
+	// 새로운 메시지 개수 가져오기
+	private Long getMessageCnt(HttpServletRequest request) throws Exception {
+		
+		LoginVO vo = (LoginVO) request.getSession().getAttribute("login");
+		
+		System.out.println(vo);
+		
+		if(vo == null) {
+			
+			throw new ELException("MessageController.getMessageCnt() : 로그인이 필요한 서비스 입니다.");
+			
+		}
+		
+		String id = vo.getId();
+		
+		return (Long) ExeService.execute(Beans.get(AuthorityFilter.url), id);
 		
 	}
 	

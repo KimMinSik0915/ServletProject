@@ -20,6 +20,7 @@ import com.webjjang.image.service.ImageViewService;
 import com.webjjang.image.service.ImageWriteService;
 import com.webjjang.member.controller.MemberController;
 import com.webjjang.member.dao.MemberDAO;
+import com.webjjang.member.service.MemberCheckIdService;
 import com.webjjang.member.service.MemberGradeModifyService;
 import com.webjjang.member.service.MemberListService;
 import com.webjjang.member.service.MemberLoginService;
@@ -28,6 +29,7 @@ import com.webjjang.member.service.MemberViewService;
 import com.webjjang.message.controller.MessageController;
 import com.webjjang.message.dao.MessageDAO;
 import com.webjjang.message.serviec.MessageDeleteService;
+import com.webjjang.message.serviec.MessageGetMessageCntService;
 import com.webjjang.message.serviec.MessageListService;
 import com.webjjang.message.serviec.MessageViewService;
 import com.webjjang.message.serviec.MessageWriteService;
@@ -130,6 +132,7 @@ public class Init extends HttpServlet {
 		Beans.put("/member/gradeModify.do", new MemberGradeModifyService()); 
 		Beans.put("/member/register.do", new MemberRegisterService()); 
 		Beans.put("/member/view.do", new MemberViewService());
+		Beans.put("/ajax/checkId.do", new MemberCheckIdService());
 		
 		
 		System.out.println("Init.init().Beans.get(\"/member/register.do\" : " + Beans.get("/member/register.do"));
@@ -141,6 +144,7 @@ public class Init extends HttpServlet {
 		Beans.get("/member/gradeModify.do").setDAO(Beans.getDAO("memberDAO"));
 		Beans.get("/member/register.do").setDAO(Beans.getDAO("memberDAO"));
 		Beans.get("/member/view.do").setDAO(Beans.getDAO("memberDAO"));
+		Beans.get("/ajax/checkId.do").setDAO(Beans.getDAO("memberDAO"));
 		
 		
 		// 메시지 ============================================================================================================
@@ -153,13 +157,16 @@ public class Init extends HttpServlet {
 		Beans.put("/message/write.do", new MessageWriteService());
 		Beans.put("/message/view.do", new MessageViewService());
 		Beans.put("/message/delete.do", new MessageDeleteService());
+		Beans.put("/ajax/getMessageCnt.do", new MessageGetMessageCntService());
 		
 		// DAO넣기
 		Beans.get("/message/list.do").setDAO(Beans.getDAO("messageDAO"));
 		Beans.get("/message/write.do").setDAO(Beans.getDAO("messageDAO"));	// Beans에서  key = /message/write.do로 저장해 놓은 것을 꺼낸 뒤 (MessageWriteService) Beans에서 key =  messageDAO로 저장해 놓은 것을 꺼낸다(MessageDAO).
 		Beans.get("/message/view.do").setDAO(Beans.getDAO("messageDAO"));	// key가 다르면 null이 나온다. = NullPointException
 		Beans.get("/message/delete.do").setDAO(Beans.getDAO("messageDAO"));
+		Beans.get("/ajax/getMessageCnt.do").setDAO(Beans.getDAO("messageDAO"));
 		
+		System.out.println("Init.init().Beans.get(\"/ajax/getMessageCnt.do\" : " + Beans.get("/ajax/getMessageCnt.do"));
 		System.out.println("Init.init().Beans.getController(\"/message) : " +  Beans.getController("/message"));
 		
 		// 질문답변 객체를 생성 후 저장 ====================================

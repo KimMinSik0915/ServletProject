@@ -80,8 +80,27 @@ article {
 }
 </style>
 <script type="text/javascript">
+
 	$(document).ready(function() {
+		
+		<c:if test="${!empty login}">
+		
+			getMessageCnt();
+		
+			var myVar = setInterval(getMessageCnt, 3000);
+			
+			function getMessageCnt() {
+				
+				// 서버에 가서 사용자가 받은 새로운 매시지를 가져온다. : url
+				
+				$("#messageCnt").load("/ajax/getMessageCnt.do");	// Ajax	 
+			  
+			} 
+			
+		</c:if>
+		
 	});
+	
 </script>
 <decorator:head/>
 </head>
@@ -118,6 +137,7 @@ article {
 						<!-- 로그인이 되어 있는 경우의 메뉴 -->
 						<c:if test="${!empty login }">
 						 <li><a href="${path }/member/view.do"><span class="glyphicon glyphicon-user"></span> ${login.name }</a></li>
+						 <li><a href=""><span class="badge" id="messageCnt">0</span></a></li>
 						 <li><a href="${path }/member/logout.do"><span class="glyphicon glyphicon-log-out"></span>로그아웃</a></li>
 						</c:if> 
 					</ul>

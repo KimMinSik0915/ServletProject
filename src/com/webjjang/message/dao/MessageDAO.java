@@ -234,6 +234,7 @@ public class MessageDAO {
 		
 	}	// end of view()
 	
+	// 메시지 삭제
 	public int delete(long no) throws Exception {
 		
 		int result = 0;
@@ -262,6 +263,47 @@ public class MessageDAO {
 		}
 		
 		return result;
+		
+	}
+
+	
+	// 새로운 메시지 개수 가져오기
+	public Object getMessageCnt(String id) throws Exception{
+		
+		Long cnt = 0L;
+		
+		try {
+			
+			con = DBInfo.getConnection();
+			
+			pstmt = con.prepareStatement(DBSQL.MESSAGE_GET_MESSAGE_CNT);
+			
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs != null && rs.next()) {
+				
+				cnt = rs.getLong(1);
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			
+			e.printStackTrace();
+			
+			throw new Exception("새로운 메시지 개수를 가져오는 중 DB에 오류가 발생하였습니다.");
+			
+		} finally {
+			
+			DBInfo.close(con, pstmt, rs);
+			
+		}
+		
+		System.out.println("MessageDAO.getMessageCnt() [cnt] : " + cnt);
+		
+		return cnt;
 		
 	}
 	

@@ -90,10 +90,23 @@ public class MemberController implements Controller {
 			
 			break;
 			
+		// 아이디 중복체크
+		case "/ajax/checkId.do" : 
+			
+			// DB에서 입력한 ID를 찾아온다.
+			// 찾아온 ID를 request에 넣는다.
+			
+			// div안에 들어갈 코드만 있는 jsp로 이동시킨다.
+			
+			checkId(request);
+			
+			jspInfo = "member/checkId";
+			
+			break;
 			
 		default:
 			
-			throw new Exception("404 페이지 오류 : 존재하지 않는 페이지 입니다.");
+			throw new Exception("MemberContorller - 404 페이지 오류 : 존재하지 않는 페이지 입니다.");
 			
 		}
 		 
@@ -151,6 +164,20 @@ public class MemberController implements Controller {
 		vo.setEmail(request.getParameter("email"));
 		
 		ExeService.execute(Beans.get(AuthorityFilter.url), vo);
+		
+	}
+
+	// 아이디 중복체크
+	private void checkId(HttpServletRequest request) throws Exception {
+
+		String id = request.getParameter("id");
+		
+		// DB처리
+		String result = (String) ExeService.execute(Beans.get(AuthorityFilter.url), id);		
+		
+		// 서버 객체에 저장한다.
+		
+		request.setAttribute("id", result);
 		
 	}
 	

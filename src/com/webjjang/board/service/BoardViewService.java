@@ -33,7 +33,8 @@ public class BoardViewService implements Service {
 		
 		Long inc = (Long)objs[1];
 				
-		if (inc== 1) 
+		if (inc== 1)
+			
 			dao.increase(no);
 			
 		return dao.view(no); 

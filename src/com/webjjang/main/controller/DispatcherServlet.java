@@ -1,6 +1,8 @@
 package com.webjjang.main.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 //import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,10 +35,12 @@ public class DispatcherServlet extends HttpServlet {
 		
 		// 이곳에서 처리해야 할 모든 URL(*.do)을 받도록 설정 : web.xml
 		System.out.println("DispatcherServlet.service() : *.do");
+
+		// 순수한 데이터를 전달하기 위한 객체 생성
+		PrintWriter out = response.getWriter();
 		
 		// /qna/list.do : /qna = subString(0, 4[indexOf("/", 1)])
 		// /board/list.do : /board = subString(0,6[indexOf("/",1)])
-		
 		int endIndex = AuthorityFilter.url.indexOf("/", 1);
 						// /main/main.do
 		String module = "/main";
@@ -49,11 +53,42 @@ public class DispatcherServlet extends HttpServlet {
 			
 		}
 		
+		// 모듈에 포함이 되어 있지 않은 url의 처리 : 사이트 매쉬에 적용이 안되도록 만들어야 함으로
+		if(AuthorityFilter.url.equals("/ajax/checkId.do")) {
+			
+			module = "/member";	// MemberController가 선택
+			
+		} else if (AuthorityFilter.url.equals("/ajax/getMessageCnt.do")) {
+			
+			module = "/message";
+			
+			// DB에서 데이터 가져오기 : 새로운 메시지의 갯수를 가져오는 프로그램 Controller - service - dao
+			try {
+				
+				String data =  Beans.getController(module).execute(request);
+				
+				out.write(data);
+				
+				System.out.println("DispatcherServlet.service() [module] : " + module + " ajax : getMessageCnt");
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				
+				e.printStackTrace();
+				
+			}
+			
+			return;
+			
+		}
+		
 		
 		try {
 			
+			// 실행할 Controller를 선택한다.
 			Controller controller = Beans.getController(module);
-			
+			// Controller = 데이터 수집(request에서부터)과 처리된 결과 저장
+			// 데이터 처리를 위한 service는 선택해서 실행
 			
 			if(controller == null) {
 				
@@ -61,6 +96,7 @@ public class DispatcherServlet extends HttpServlet {
 				 
 			}
 			
+			// Controller를 실행하고  forward나 sendRedirect 정보를 돌려 받는다.
 			String jspInfo = controller.execute(request);
 			
 			if(jspInfo.indexOf("redirect:") == 0) {		// sendRedirect를 하려면 리턴되는 문자열 앞에 "redirect:"를 붙여준다.
@@ -89,7 +125,7 @@ public class DispatcherServlet extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/views/error/error_page.jsp").forward(request, response);	// forward시킨 내용의 url은 변경이 되지 않는다.
 			
 		}
-
+		
 		// 요청한 URLd을 처리해서 출력
 		/* 
 		 * String url = request.getServletPath();
@@ -130,7 +166,8 @@ public class DispatcherServlet extends HttpServlet {
 		 * e.printStackTrace();
 		 * 
 		 * }
-		 */
+		 */ 
+		
 	}
 
 }

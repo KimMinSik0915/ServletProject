@@ -13,6 +13,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 //import javax.servlet.annotation.WebFilter;
 import com.webjjang.member.vo.LoginVO;
 
@@ -42,6 +43,7 @@ public class AuthorityFilter implements Filter {
 		authMap.put("/message/write.do", 1);
 		authMap.put("/message/writeForm.do", 1);
 		authMap.put("/message/delete.do", 1);
+		authMap.put("/ajax/getMessageCnt.do", 1);
 		
 		// qna
 //		authMap.put("/qna/list.do", 1);
@@ -105,6 +107,14 @@ public class AuthorityFilter implements Filter {
 		
 		LoginVO vo = (LoginVO)session.getAttribute("login");
 		
+		// 새로운 메시지 갯수 처리 중 로그인이 되어 있지 않는 경우 바로 로그인 페이지로 이동 시킨다
+		if(AuthorityFilter.url.equals("/ajax/getMessageCnt.do") && vo == null) {
+			
+			((HttpServletResponse)response).sendRedirect("/member/loginForm.do");
+			
+			return;
+			
+		}
 		
 		// 권한이 없는 경우의 처리
 		if(!checkAuthority(vo)) {

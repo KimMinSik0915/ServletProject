@@ -274,4 +274,46 @@ public class MemberDAO {
 		
 	}
 	
+	
+	//============================================================================================================================================================================================================================
+	public String checkId(String id) throws Exception {
+		
+		String result = null;
+		
+		try {
+			
+			con = DBInfo.getConnection();
+			
+			pstmt = con.prepareStatement(DBSQL.MEMBER_CHECKID);
+			
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs != null && rs.next()) {
+				
+				result = rs.getString("id");
+				
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			
+			e.printStackTrace();
+			
+			throw new Exception("아이디 중복체크 중 DB오류가 발생하였습니다.");
+			
+		} finally {
+			
+			DBInfo.close(con, pstmt, rs);
+			
+		}
+		
+		System.out.println("MemberDAO.checkId() : " + result);
+		
+		return result;
+		
+	}
+	
 }

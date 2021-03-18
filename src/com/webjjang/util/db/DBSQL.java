@@ -95,6 +95,10 @@ public class DBSQL {
 	= " INSERT INTO member (id, pw, name, gender, birth, email)"
 	+ " VALUES(?, ?, ?, ?, ?, ?) ";
 			
+	// 아이디 중복 체크
+	public static final String MEMBER_CHECKID
+	= " SELECT id FROM member "
+	+ " WHERE id = ? ";
 	
 	// 회원관리 리스트 ===============================================================================================
 	public static final String MEMBER1_LIST 	// 회원관리 리스트 : id, name, gender, birth, tel, status, gradeNo, gradeName
@@ -172,6 +176,10 @@ public class DBSQL {
 	= " DELETE FROM message "
 	+ "	WHERE no = ? ";
 	
+	// 새로운 메시지 개수 가져오기
+	public static final String MESSAGE_GET_MESSAGE_CNT
+	= " SELECT COUNT (*) FROM message "
+	+ " WHERE accepter = ? AND acceptDate IS NULL ";
 	
 	// qna쿼리 ===========================================================================================
 	// QnA 쿼리

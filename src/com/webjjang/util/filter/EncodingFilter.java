@@ -12,6 +12,8 @@ import javax.servlet.annotation.WebFilter;
 /**
  * Servlet Filter implementation class EncodingFilter
  */
+
+// filter 등록 방법 : 1 : web.xml, 2. filter Class 앞에 @WebFilter를 이용해서(개발자가 코드를 작성할 때만 가능)
 @WebFilter("/*")
 public class EncodingFilter implements Filter {
 
